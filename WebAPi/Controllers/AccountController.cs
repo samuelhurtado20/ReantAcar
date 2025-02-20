@@ -1,0 +1,45 @@
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using WebAPi.Models;
+
+namespace WebAPi.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class AccountController : ControllerBase
+    {
+        private readonly UserManager<IdentityUser> userManager;
+
+        public AccountController(UserManager<IdentityUser> userManager)
+        {
+            this.userManager = userManager;
+        }
+
+        [Authorize]
+        [HttpGet("Profile")]
+        public async Task<IActionResult> GetUserProfile()
+        {
+            var user = await userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return NotFound("User not found");
+            }
+
+            return Ok(new UserProfile { Id = user.Id, Name = user.UserName!, Email = user.Email!, PhoneNumber = user.PhoneNumber! });
+        }
+
+        [HttpGet("Welcome")]
+        public IActionResult Welcome()
+        {
+            if (User.Identity == null || User.Identity.IsAuthenticated)
+            {
+                return Ok($"Welcome {User.Identity?.Name}");
+            }
+            else
+            {
+                return Unauthorized("You are NOT Authenticated");
+            }
+        }
+    }
+}
