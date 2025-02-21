@@ -1,0 +1,45 @@
+﻿@page "/login"
+
+<div class="mx-auto rounded p-4" style="width: 400px; margin: 60px;">
+        <h2 class="text-center">Login</h2>
+    <hr />
+    <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Email address</label>
+        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" @bind-value="Username">
+        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Password</label>
+        <input type="password" class="form-control" id="exampleInputPassword1" @bind-value="Password">
+    </div>
+    <button type="submit" class="btn btn-primary" @onclick="LoginAsync">Submit</button>
+    @if (!string.IsNullOrEmpty(ErrorMessage))
+    {
+        <div class="alert alert-danger" role="alert">
+            @ErrorMessage
+        </div>
+    }
+</div>
+
+@inject AuthenticationStateProvider provider
+@inject NavigationManager navigation
+
+@code {
+    public string Username { get; set; }
+    public string Password { get; set; }
+    public string? ErrorMessage { get; set; } = string.Empty;
+
+    private async Task LoginAsync(MouseEventArgs e)
+    {
+        var authProvider = (CustomAuthStateProvider) provider;
+        var formResult = await authProvider.LoginAsync(Username, Password);
+        if (formResult.Succeeded)
+        {
+            navigation.NavigateTo("/");
+        }
+        else
+        {
+            ErrorMessage = formResult?.Errors?.FirstOrDefault()!;
+        }
+    }
+}

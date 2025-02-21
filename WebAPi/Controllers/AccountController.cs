@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using WebAPi.Models;
 
 namespace WebAPi.Controllers
 {
@@ -26,7 +25,7 @@ namespace WebAPi.Controllers
                 return NotFound("User not found");
             }
 
-            return Ok(new UserProfile { Id = user.Id, Name = user.UserName!, Email = user.Email!, PhoneNumber = user.PhoneNumber! });
+            return Ok(new Dto.UserProfile { Id = user.Id, Name = user.UserName!, Email = user.Email!, PhoneNumber = user.PhoneNumber! });
         }
 
         [HttpGet("Welcome")]

@@ -1,0 +1,43 @@
+﻿@page "/register"
+
+<div class="mx-auto rounded p-4" style="width: 400px; margin: 60px;">
+    <h2 class="text-center">Register</h2>
+    <hr />
+    <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Email address</label>
+        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" @bind-value="Username">
+        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Password</label>
+        <input type="password" class="form-control" id="exampleInputPassword1" @bind-value="Password">
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">ConfirmPassword</label>
+        <input type="password" class="form-control" id="exampleInputPassword1" @bind-value="ConfirmPassword">
+    </div>
+    <button type="submit" class="btn btn-primary" @onclick="RegisterAsync">Submit</button>
+    @if (Errors.Length > 0)
+    {
+        <div class="alert alert-danger" role="alert">
+            <ul>
+                @foreach (var error in Errors)
+                {
+                    <li>@error</li>
+                }
+            </ul>
+        </div>
+    }
+</div>
+
+@code {
+    public string Username { get; set; } = string.Empty;
+    public string Password { get; set; } = string.Empty;
+    public string ConfirmPassword { get; set; } = string.Empty;
+    public string[] Errors { get; set; } = [];
+
+    private void RegisterAsync(MouseEventArgs e)
+    {
+        throw new NotImplementedException();
+    }
+}
