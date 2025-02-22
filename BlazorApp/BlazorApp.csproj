@@ -7,6 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Layout\LoginLayout.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Pages\Auth\LoginLayout.razor.css" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Blazored.LocalStorage" Version="4.5.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="8.0.13" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.7" />
@@ -15,6 +23,22 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Models\Models.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Layout\LoginLayout.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Layout\LoginLayout.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Pages\Auth\LoginLayout.razor.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Pages\Auth\LoginLayout.razor" />
   </ItemGroup>
 
 </Project>

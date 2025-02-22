@@ -25,6 +25,13 @@ namespace WebAPi.Controllers
                 return NotFound("User not found");
             }
 
+            //foreach (var value in Enum.GetValues(typeof(Models.Enums.Roles)))
+            //{
+            //    Console.WriteLine(value);
+            //    var description = EnumHelper<Roles>.GetDisplayValue((Roles)value);
+            //    Console.WriteLine(description);
+            //}
+
             return Ok(new Dto.UserProfile { Id = user.Id, Name = user.UserName!, Email = user.Email!, PhoneNumber = user.PhoneNumber! });
         }
 

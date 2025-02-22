@@ -30,42 +30,33 @@ public class CustomAuthStateProvider : AuthenticationStateProvider
         var user = new ClaimsPrincipal(new ClaimsIdentity());
         try
         {
+            var response1 = await httpClient.GetAsync("api/Account/Profile");
             var response = await httpClient.GetAsync("manage/info");
             if (response.IsSuccessStatusCode)
             {
                 var strResponse = await response.Content.ReadAsStringAsync();
                 var jsonResponse = JsonNode.Parse(strResponse);
-                var id = jsonResponse?["id"]?.ToString();
-                var name = jsonResponse?["name"]?.ToString();
-                var email = jsonResponse?["email"]?.ToString();
-                var phoneNumber = jsonResponse?["phoneNumber"]?.ToString();
+                var email = jsonResponse!["email"]!.ToString();
 
-                var claims = new List<Claim>();
-                if (id != null)
+                var claims = new List<Claim>
                 {
-                    claims.Add(new Claim(ClaimTypes.NameIdentifier, id));
-                }
-                if (name != null)
-                {
-                    claims.Add(new Claim(ClaimTypes.Name, name));
-                }
-                if (email != null)
-                {
-                    claims.Add(new Claim(ClaimTypes.Email, email));
-                }
-                if (phoneNumber != null)
-                {
-                    claims.Add(new Claim(ClaimTypes.MobilePhone, phoneNumber));
-                }
+                    new(ClaimTypes.Name, email),
+                    new(ClaimTypes.Email, email)
+                };
 
                 var identity = new ClaimsIdentity(claims, "Token");
                 user = new ClaimsPrincipal(identity);
+                user.Claims.Append(new Claim("Permiso", "delete-user"));
+                user.Claims.Append(new Claim("Permiso", "delete-user"));
+
+                user.HasClaim(x => x.Type == "Permiso" && x.Value == "delete-user");
+
                 return new AuthenticationState(user);
             }
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            user = new ClaimsPrincipal(new ClaimsIdentity());
+            Console.WriteLine(ex);
         }
 
         return new AuthenticationState(user);
@@ -73,29 +64,37 @@ public class CustomAuthStateProvider : AuthenticationStateProvider
 
     public async Task<FormResult> LoginAsync(string email, string password)
     {
-        var response = await httpClient.PostAsJsonAsync("login", new { email, password });
-
-        if (response.IsSuccessStatusCode)
+        try
         {
-            var strResponse = await response.Content.ReadAsStringAsync();
-            var jsonResponse = JsonNode.Parse(strResponse);
-            var accessToken = jsonResponse?["accessToken"]?.ToString();
-            var refreshToken = jsonResponse?["refreshToken"]?.ToString();
+            var response = await httpClient.PostAsJsonAsync("login", new { email, password });
 
-            localStorage.SetItem("accessToken", accessToken);
-            localStorage.SetItem("refreshToken", refreshToken);
+            if (response.IsSuccessStatusCode)
+            {
+                var strResponse = await response.Content.ReadAsStringAsync();
+                var jsonResponse = JsonNode.Parse(strResponse);
+                var accessToken = jsonResponse?["accessToken"]?.ToString();
+                var refreshToken = jsonResponse?["refreshToken"]?.ToString();
 
-            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+                localStorage.SetItem("accessToken", accessToken);
+                localStorage.SetItem("refreshToken", refreshToken);
 
-            // need to refresh auth state
-            NotifyAuthenticationStateChanged(GetAuthenticationStateAsync());
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
-            return new FormResult { Succeeded = true };
+                // need to refresh auth state
+                NotifyAuthenticationStateChanged(GetAuthenticationStateAsync());
+
+                return new FormResult { Succeeded = true };
+            }
+            else
+            {
+                return new FormResult { Succeeded = false, Errors = ["Invalid email or password"] };
+            }
         }
-        else
+        catch
         {
-            return new FormResult { Succeeded = false, Errors = ["Invalid email or password"] };
         }
+
+        return new FormResult { Succeeded = false, Errors = ["Connection Error"] };
     }
 
     public async Task<FormResult> RegisterAsync(Dto.Register register)

@@ -8,8 +8,8 @@
         <div class="top-row px-4">
             <AuthorizeView>
                 <Authorized>
-                    <p class="my-3 me-3">Hello, @context.User.Identity?.Name!</p>
-                    <button class="btn btn-outline-primary" @onclick="LogOut" >Log out   </button>
+                    <p class="my-3 me-3">Hello, <a href="/profile">@context.User.Identity?.Name!</a></p>
+                    <button class="btn btn-outline-primary" @onclick="LogOut" >Log out</button>
                 </Authorized>
                 <NotAuthorized>
                     <a class="btn btn-primary" href="Login">Login </a>

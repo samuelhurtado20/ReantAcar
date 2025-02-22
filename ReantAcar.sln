@@ -5,9 +5,9 @@ VisualStudioVersion = 17.10.35027.167
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPi", "WebAPi\WebAPi.csproj", "{5F8D89C0-B4DF-4241-848F-959AD7ADE2A2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorApp", "BlazorApp\BlazorApp.csproj", "{CBFB6438-E0AB-4BD4-BA18-F904A5E89288}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorApp", "BlazorApp\BlazorApp.csproj", "{CBFB6438-E0AB-4BD4-BA18-F904A5E89288}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csproj", "{12477E67-0704-4A55-8BF2-833F58B84958}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Models", "Models\Models.csproj", "{12477E67-0704-4A55-8BF2-833F58B84958}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

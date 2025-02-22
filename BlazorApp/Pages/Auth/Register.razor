@@ -1,6 +1,6 @@
 ﻿@page "/register"
 
-<div class="mx-auto rounded p-4" style="width: 400px; margin: 60px;">
+<div class="mx-auto rounded border p-4" style="width: 400px; margin: 10px;">
     <h2 class="text-center">Register</h2>
     <hr />
     <div class="mb-3">
@@ -16,10 +16,10 @@
         <label for="exampleInputPassword1" class="form-label">ConfirmPassword</label>
         <input type="password" class="form-control" id="exampleInputPassword1" @bind-value="ConfirmPassword">
     </div>
-    <button type="submit" class="btn btn-primary" @onclick="RegisterAsync">Submit</button>
+    <button type="submit" class="btn btn-primary mb-2" @onclick="RegisterAsync">Submit</button>
     @if (Errors.Length > 0)
     {
-        <div class="alert alert-danger" role="alert">
+        <div class="mt-4 alert-danger" role="alert">
             <ul>
                 @foreach (var error in Errors)
                 {
@@ -30,14 +30,39 @@
     }
 </div>
 
+@inject AuthenticationStateProvider provider
+@inject NavigationManager navigation
 @code {
     public string Username { get; set; } = string.Empty;
     public string Password { get; set; } = string.Empty;
     public string ConfirmPassword { get; set; } = string.Empty;
     public string[] Errors { get; set; } = [];
 
-    private void RegisterAsync(MouseEventArgs e)
+    private async Task RegisterAsync()
     {
-        throw new NotImplementedException();
+
+        try
+        {
+            if(Password != ConfirmPassword)
+            {
+                Errors = new string[] { "Password and Confirm Password do not match" };
+                return;
+            }
+            var authProvider = (CustomAuthStateProvider)provider;
+            var formResult = await authProvider.RegisterAsync(new Dto.Register{ Email = Username, Password = Password });
+            if (formResult.Succeeded)
+            {
+                navigation.NavigateTo("/");
+            }
+            else
+            {
+                Errors = formResult?.Errors ?? new string[] { "An error occurred" };
+            }
+        }
+        catch (Exception)
+        {
+            
+            throw;
+        }
     }
 }

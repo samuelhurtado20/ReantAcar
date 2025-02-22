@@ -1,0 +1,51 @@
+﻿@page "/profile"
+
+@if(UserProfile != null)
+{
+    <div class="mx-auto rounded border p-4" style="width: 400px; margin: 10px;">
+        <h2 class="text-center">Profile</h2>
+        <hr />
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" @bind-value="@UserProfile.Email">
+            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Name</label>
+            <input type="text" class="form-control" id="exampleInputPassword1" @bind-value="@UserProfile.Name">
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Id</label>
+            <input type="text" class="form-control" id="exampleInputPassword1" @bind-value="@UserProfile.Id">
+        </div>
+    </div>
+}
+else
+{
+    <p>Loading...</p>
+}
+
+
+@inject HttpClient http
+@code {
+    public Dto.UserProfile UserProfile { get; set; } = new Dto.UserProfile();
+    private string ErrorMessage { get; set; } = string.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+
+            var response = await http.GetFromJsonAsync<Dto.UserProfile>("api/Account/Profile");
+            if (response != null)
+            {
+                UserProfile = response;
+            }
+        }
+        catch (Exception ex)
+        {
+            ErrorMessage = ex.Message;
+        }
+    }
+
+}

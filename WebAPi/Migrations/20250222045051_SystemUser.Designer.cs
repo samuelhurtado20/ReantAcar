@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebAPi.Services;
 
@@ -11,9 +12,11 @@ using WebAPi.Services;
 namespace WebAPi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250222045051_SystemUser")]
+    partial class SystemUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -98,232 +101,6 @@ namespace WebAPi.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetRoleClaims", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            ClaimType = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role",
-                            ClaimValue = "Create_Role",
-                            RoleId = "00000000-0000-0000-0000-000000000001"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            ClaimType = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role",
-                            ClaimValue = "Read_Role",
-                            RoleId = "00000000-0000-0000-0000-000000000001"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            ClaimType = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role",
-                            ClaimValue = "Update_Role",
-                            RoleId = "00000000-0000-0000-0000-000000000001"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            ClaimType = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role",
-                            ClaimValue = "Delete_Role",
-                            RoleId = "00000000-0000-0000-0000-000000000001"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            ClaimType = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role",
-                            ClaimValue = "Create_User",
-                            RoleId = "00000000-0000-0000-0000-000000000001"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            ClaimType = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role",
-                            ClaimValue = "Read_User",
-                            RoleId = "00000000-0000-0000-0000-000000000001"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            ClaimType = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role",
-                            ClaimValue = "Update_User",
-                            RoleId = "00000000-0000-0000-0000-000000000001"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            ClaimType = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role",
-                            ClaimValue = "Delete_User",
-                            RoleId = "00000000-0000-0000-0000-000000000001"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            ClaimType = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role",
-                            ClaimValue = "Create_Permission",
-                            RoleId = "00000000-0000-0000-0000-000000000001"
-                        },
-                        new
-                        {
-                            Id = 10,
-                            ClaimType = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role",
-                            ClaimValue = "Read_Permission",
-                            RoleId = "00000000-0000-0000-0000-000000000001"
-                        },
-                        new
-                        {
-                            Id = 11,
-                            ClaimType = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role",
-                            ClaimValue = "Update_Permission",
-                            RoleId = "00000000-0000-0000-0000-000000000001"
-                        },
-                        new
-                        {
-                            Id = 12,
-                            ClaimType = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role",
-                            ClaimValue = "Delete_Permission",
-                            RoleId = "00000000-0000-0000-0000-000000000001"
-                        },
-                        new
-                        {
-                            Id = 13,
-                            ClaimType = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role",
-                            ClaimValue = "Create_Brand",
-                            RoleId = "00000000-0000-0000-0000-000000000001"
-                        },
-                        new
-                        {
-                            Id = 14,
-                            ClaimType = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role",
-                            ClaimValue = "Read_Brand",
-                            RoleId = "00000000-0000-0000-0000-000000000001"
-                        },
-                        new
-                        {
-                            Id = 15,
-                            ClaimType = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role",
-                            ClaimValue = "Update_Brand",
-                            RoleId = "00000000-0000-0000-0000-000000000001"
-                        },
-                        new
-                        {
-                            Id = 16,
-                            ClaimType = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role",
-                            ClaimValue = "Delete_Brand",
-                            RoleId = "00000000-0000-0000-0000-000000000001"
-                        },
-                        new
-                        {
-                            Id = 17,
-                            ClaimType = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role",
-                            ClaimValue = "Create_Vehicle",
-                            RoleId = "00000000-0000-0000-0000-000000000001"
-                        },
-                        new
-                        {
-                            Id = 18,
-                            ClaimType = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role",
-                            ClaimValue = "Read_Vehicle",
-                            RoleId = "00000000-0000-0000-0000-000000000001"
-                        },
-                        new
-                        {
-                            Id = 19,
-                            ClaimType = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role",
-                            ClaimValue = "Update_Vehicle",
-                            RoleId = "00000000-0000-0000-0000-000000000001"
-                        },
-                        new
-                        {
-                            Id = 20,
-                            ClaimType = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role",
-                            ClaimValue = "Delete_Vehicle",
-                            RoleId = "00000000-0000-0000-0000-000000000001"
-                        },
-                        new
-                        {
-                            Id = 21,
-                            ClaimType = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role",
-                            ClaimValue = "Create_Invoice",
-                            RoleId = "00000000-0000-0000-0000-000000000001"
-                        },
-                        new
-                        {
-                            Id = 22,
-                            ClaimType = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role",
-                            ClaimValue = "Read_Invoice",
-                            RoleId = "00000000-0000-0000-0000-000000000001"
-                        },
-                        new
-                        {
-                            Id = 23,
-                            ClaimType = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role",
-                            ClaimValue = "Update_Invoice",
-                            RoleId = "00000000-0000-0000-0000-000000000001"
-                        },
-                        new
-                        {
-                            Id = 24,
-                            ClaimType = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role",
-                            ClaimValue = "Delete_Invoice",
-                            RoleId = "00000000-0000-0000-0000-000000000001"
-                        },
-                        new
-                        {
-                            Id = 25,
-                            ClaimType = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role",
-                            ClaimValue = "Create_Report",
-                            RoleId = "00000000-0000-0000-0000-000000000001"
-                        },
-                        new
-                        {
-                            Id = 26,
-                            ClaimType = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role",
-                            ClaimValue = "Read_Report",
-                            RoleId = "00000000-0000-0000-0000-000000000001"
-                        },
-                        new
-                        {
-                            Id = 27,
-                            ClaimType = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role",
-                            ClaimValue = "Update_Report",
-                            RoleId = "00000000-0000-0000-0000-000000000001"
-                        },
-                        new
-                        {
-                            Id = 28,
-                            ClaimType = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role",
-                            ClaimValue = "Delete_Report",
-                            RoleId = "00000000-0000-0000-0000-000000000001"
-                        },
-                        new
-                        {
-                            Id = 29,
-                            ClaimType = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role",
-                            ClaimValue = "Create_Customer",
-                            RoleId = "00000000-0000-0000-0000-000000000001"
-                        },
-                        new
-                        {
-                            Id = 30,
-                            ClaimType = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role",
-                            ClaimValue = "Read_Customer",
-                            RoleId = "00000000-0000-0000-0000-000000000001"
-                        },
-                        new
-                        {
-                            Id = 31,
-                            ClaimType = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role",
-                            ClaimValue = "Update_Customer",
-                            RoleId = "00000000-0000-0000-0000-000000000001"
-                        },
-                        new
-                        {
-                            Id = 32,
-                            ClaimType = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role",
-                            ClaimValue = "Delete_Customer",
-                            RoleId = "00000000-0000-0000-0000-000000000001"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
@@ -393,9 +170,9 @@ namespace WebAPi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "cd0b166d-650b-4562-8955-f3f402b4c8d1",
+                            Id = "644a5e57-2e94-4710-9a86-c833bed68ff2",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "3f2080f3-0835-4921-b846-0efc75127cb9",
+                            ConcurrencyStamp = "e9aa9a22-2b4c-4c72-91f1-e81d7fa346b5",
                             Email = "systemadmin@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
@@ -473,7 +250,7 @@ namespace WebAPi.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "cd0b166d-650b-4562-8955-f3f402b4c8d1",
+                            UserId = "644a5e57-2e94-4710-9a86-c833bed68ff2",
                             RoleId = "00000000-0000-0000-0000-000000000001"
                         });
                 });

@@ -5,3 +5,18 @@
 <h1>Hello, world!</h1>
 
 Welcome to your new app.
+
+@inject AuthenticationStateProvider provider
+@inject NavigationManager navigation
+@code {
+
+    protected async override Task OnInitializedAsync()
+    {
+        base.OnInitialized();
+        var authProvider =  await provider.GetAuthenticationStateAsync();
+        if (!authProvider!.User!.Identity!.IsAuthenticated)
+        {
+            navigation.NavigateTo("Login", true);
+        }
+    }
+}
