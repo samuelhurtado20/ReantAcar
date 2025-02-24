@@ -9,6 +9,14 @@
             <AuthorizeView>
                 <Authorized>
                     <p class="my-3 me-3">Hello, <a href="/profile">@context.User.Identity?.Name!</a></p>
+                    @if (context.User.IsInRole("Create_User"))
+                    {
+                        <a class="btn btn-warning" href="/admin">Create_User</a>
+                    }
+                    @if (context.User.IsInRole("Admin"))
+                    {
+                        <a class="btn btn-warning" href="/admin">Admin</a>
+                    }
                     <button class="btn btn-outline-primary" @onclick="LogOut" >Log out</button>
                 </Authorized>
                 <NotAuthorized>

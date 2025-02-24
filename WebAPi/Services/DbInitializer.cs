@@ -40,11 +40,12 @@ public class DbInitializer(ModelBuilder modelBuilder)
             Email = Roles.SystemAdmin.ToString().ToLower() + "@gmail.com",
             NormalizedEmail = Roles.SystemAdmin.ToString().ToLower() + "@gmail.com",
             EmailConfirmed = true,
-            PasswordHash = "Admin@123",
+            PasswordHash = new PasswordHasher<IdentityUser>().HashPassword(null, "Admin@123"),
             SecurityStamp = string.Empty,
             ConcurrencyStamp = Guid.NewGuid().ToString(),
             AccessFailedCount = 0
         };
+
         modelBuilder.Entity<IdentityUser>().HasData(
             systemAdmin
         );

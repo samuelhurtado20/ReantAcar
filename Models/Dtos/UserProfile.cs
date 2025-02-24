@@ -9,4 +9,6 @@ public class UserProfile
     public string Email { get; set; } = null!;
 
     public string PhoneNumber { get; set; } = null!;
+
+    public List<string> Permissions { get; set; } = [];
 }

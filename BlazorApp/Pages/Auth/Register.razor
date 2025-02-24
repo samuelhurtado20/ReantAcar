@@ -65,4 +65,29 @@
             throw;
         }
     }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        Console.WriteLine("OnInitialized");
+    }
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+        Console.WriteLine("OnParametersSet");
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+        Console.WriteLine("First Render ", firstRender.ToString());
+    }
+
+    protected override bool ShouldRender()
+    {
+        Console.WriteLine("ShouldRender");
+        return base.ShouldRender();
+    }
+
 }

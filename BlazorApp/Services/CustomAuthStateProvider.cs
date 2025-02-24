@@ -30,26 +30,33 @@ public class CustomAuthStateProvider : AuthenticationStateProvider
         var user = new ClaimsPrincipal(new ClaimsIdentity());
         try
         {
-            var response1 = await httpClient.GetAsync("api/Account/Profile");
-            var response = await httpClient.GetAsync("manage/info");
+            var response = await httpClient.GetAsync("api/Account/Profile");
+            //var response = await httpClient.GetAsync("manage/info");
             if (response.IsSuccessStatusCode)
             {
                 var strResponse = await response.Content.ReadAsStringAsync();
                 var jsonResponse = JsonNode.Parse(strResponse);
                 var email = jsonResponse!["email"]!.ToString();
+                var permisos = jsonResponse!["permissions"]!.AsArray();
 
                 var claims = new List<Claim>
                 {
                     new(ClaimTypes.Name, email),
                     new(ClaimTypes.Email, email)
                 };
+                //JsonObject.Parse(permisos).ToList().ForEach(x => claims.Add(new(ClaimTypes.Role, x.ToString())));
+
+                foreach (var item in permisos)
+                {
+                    claims.Add(new(ClaimTypes.Role, item.ToString()));
+                }
 
                 var identity = new ClaimsIdentity(claims, "Token");
                 user = new ClaimsPrincipal(identity);
-                user.Claims.Append(new Claim("Permiso", "delete-user"));
-                user.Claims.Append(new Claim("Permiso", "delete-user"));
+                //user.Claims.Append(new Claim("Permiso", "delete-user"));
+                //user.Claims.Append(new Claim("Permiso", "delete-user"));
 
-                user.HasClaim(x => x.Type == "Permiso" && x.Value == "delete-user");
+                //user.HasClaim(x => x.Type == "Permiso" && x.Value == "delete-user");
 
                 return new AuthenticationState(user);
             }
