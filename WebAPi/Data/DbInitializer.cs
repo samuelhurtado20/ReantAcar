@@ -5,7 +5,7 @@ using Microsoft.OpenApi.Extensions;
 using Models.Enums;
 using System.Security.Claims;
 
-namespace WebAPi.Services;
+namespace WebAPi.Data;
 
 public class DbInitializer(ModelBuilder modelBuilder)
 {
@@ -15,9 +15,9 @@ public class DbInitializer(ModelBuilder modelBuilder)
 
     public void Seed()
     {
-        this.SeedRoles();
-        this.SeedUser();
-        this.SeedPermissions();
+        SeedRoles();
+        SeedUser();
+        SeedPermissions();
     }
 
     private void SeedRoles()

@@ -2,7 +2,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
-using WebAPi.Services;
+using WebAPi.Data;
+using WebAPi.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -75,6 +76,10 @@ builder.Services.AddSwaggerGen(s =>
                 }
             });
 });
+
+// Add modules.
+builder.Services.AddRepositories();
+builder.Services.AddServices(builder.Configuration);
 
 var app = builder.Build();
 
