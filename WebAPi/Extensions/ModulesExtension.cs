@@ -1,4 +1,8 @@
-﻿using WebAPi.Interfaces.Repositories;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.EntityFrameworkCore.Diagnostics;
+using WebAPi.Data.Interceptors;
+using WebAPi.Interfaces.Repositories;
 using WebAPi.Interfaces.Services;
 using WebAPi.Repositories;
 using WebAPi.Services;
@@ -15,6 +19,7 @@ public static class ModulesExtension
         services.AddScoped<ICustomerService, CustomerService>();
         services.AddScoped<IInvoiceService, InvoiceService>();
         services.AddScoped<IInvoiceDetailService, InvoiceDetailService>();
+        services.AddScoped<ISaveChangesInterceptor, AuditableEntityInterceptor>();
         return services;
     }
 
@@ -27,4 +32,10 @@ public static class ModulesExtension
         services.AddScoped<IInvoiceDetailRepository, InvoiceDetailRepository>();
         return services;
     }
+
+    public static bool HasChangedOwnedEntities(this EntityEntry entry) =>
+        entry.References.Any(r =>
+            r.TargetEntry != null &&
+            r.TargetEntry.Metadata.IsOwned() &&
+            (r.TargetEntry.State == EntityState.Added || r.TargetEntry.State == EntityState.Modified));
 }

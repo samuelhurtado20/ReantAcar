@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Extensions;
 using Models.Enums;
+using Shared.Constants;
 using System.Security.Claims;
 
 namespace WebAPi.Data;
@@ -10,8 +11,6 @@ namespace WebAPi.Data;
 public class DbInitializer(ModelBuilder modelBuilder)
 {
     private readonly ModelBuilder modelBuilder = modelBuilder;
-
-    private readonly string systemAdminRoleId = "00000000-0000-0000-0000-00000000000" + (int)Roles.SystemAdmin;
 
     public void Seed()
     {
@@ -23,7 +22,7 @@ public class DbInitializer(ModelBuilder modelBuilder)
     private void SeedRoles()
     {
         modelBuilder.Entity<IdentityRole>().HasData(
-            new IdentityRole() { Id = systemAdminRoleId, Name = Roles.SystemAdmin.ToString(), NormalizedName = Roles.SystemAdmin.GetDisplayName() },
+            new IdentityRole() { Id = Identifiers.SystemAdminRoleId, Name = Roles.SystemAdmin.ToString(), NormalizedName = Roles.SystemAdmin.GetDisplayName() },
             new IdentityRole() { Id = "00000000-0000-0000-0000-00000000000" + (int)Roles.Admin, Name = Roles.Admin.ToString(), NormalizedName = Roles.Admin.GetDisplayName() },
             new IdentityRole() { Id = "00000000-0000-0000-0000-00000000000" + (int)Roles.Seller, Name = Roles.Seller.ToString(), NormalizedName = Roles.Seller.GetDisplayName() },
             new IdentityRole() { Id = "00000000-0000-0000-0000-00000000000" + (int)Roles.Customer, Name = Roles.Customer.ToString(), NormalizedName = Roles.Customer.GetDisplayName() }
@@ -34,7 +33,7 @@ public class DbInitializer(ModelBuilder modelBuilder)
     {
         var systemAdmin = new IdentityUser()
         {
-            Id = Guid.NewGuid().ToString(),
+            Id = Identifiers.SystemAdminUserId,
             UserName = Roles.SystemAdmin.ToString(),
             NormalizedUserName = Roles.SystemAdmin.GetDisplayName(),
             Email = Roles.SystemAdmin.ToString().ToLower() + "@gmail.com",
@@ -51,7 +50,7 @@ public class DbInitializer(ModelBuilder modelBuilder)
         );
 
         modelBuilder.Entity<IdentityUserRole<string>>().HasData(
-            new IdentityUserRole<string>() { UserId = systemAdmin.Id, RoleId = systemAdminRoleId }
+            new IdentityUserRole<string>() { UserId = systemAdmin.Id, RoleId = Identifiers.SystemAdminRoleId }
         );
     }
 
@@ -63,7 +62,7 @@ public class DbInitializer(ModelBuilder modelBuilder)
             var permission = new IdentityRoleClaim<string>()
             {
                 Id = permissions.Count + 1,
-                RoleId = systemAdminRoleId,
+                RoleId = Identifiers.SystemAdminRoleId,
                 ClaimType = ClaimTypes.Role,
                 ClaimValue = value.ToString()
             };

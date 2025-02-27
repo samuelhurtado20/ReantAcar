@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebAPi.Data;
 
@@ -11,9 +12,11 @@ using WebAPi.Data;
 namespace WebAPi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250227024536_SoftDelete")]
+    partial class SoftDelete
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -395,13 +398,13 @@ namespace WebAPi.Migrations
                         {
                             Id = "00000000-0000-0000-0000-000000000000",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "8717aabb-50f8-466c-8194-92d7ea256803",
+                            ConcurrencyStamp = "20d790a8-b9fa-4cc1-ac5d-4252faf24e78",
                             Email = "systemadmin@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "systemadmin@gmail.com",
                             NormalizedUserName = "System Administrator",
-                            PasswordHash = "AQAAAAIAAYagAAAAEAnQfeMrVa9hDfHfz7tWrY5Yat5bZDlr9ldSk28RW232v2bN/dhHlgREkuvhyQbQtg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEI48sge81T84AiL2b2glnV4MsUodESEZRY/jE64yUttZaNJrsnSXYKvt+SbLz/KCoQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -641,8 +644,7 @@ namespace WebAPi.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("Price")
-                        .HasPrecision(18, 4)
-                        .HasColumnType("decimal(18,4)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
@@ -713,8 +715,7 @@ namespace WebAPi.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Price")
-                        .HasPrecision(18, 4)
-                        .HasColumnType("decimal(18,4)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("SerialNumber")
                         .IsRequired()
