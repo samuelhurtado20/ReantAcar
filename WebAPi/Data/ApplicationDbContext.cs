@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Models.Entities;
+using Shared.Entities;
 
 namespace WebAPi.Data
 {
@@ -38,5 +39,7 @@ namespace WebAPi.Data
         public virtual DbSet<InvoiceDetail> InvoiceDetails { get; set; }
 
         public virtual DbSet<Invoice> Invoices { get; set; }
+
+        public virtual DbSet<AuditLog> AuditLogs { get; set; }
     }
 }
