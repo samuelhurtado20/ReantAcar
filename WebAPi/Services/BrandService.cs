@@ -1,41 +1,41 @@
-﻿using Models.Entities;
+﻿using WebAPi.Data.Entities;
 using WebAPi.Interfaces;
 using WebAPi.Interfaces.Repositories;
 using WebAPi.Interfaces.Services;
 
 namespace WebAPi.Services;
 
-public class BrandService : IBrandService
+public class BrandService(IBrandRepository repository) : IBrandService
 {
-    private readonly IBrandRepository _repository;
+    private readonly IBrandRepository _repository = repository;
 
-    public BrandService(IBrandRepository repository)
+    async Task<Brand> IService<Brand>.Create(Brand model)
     {
-        _repository = repository;
+        return await _repository.CreateAsync(model);
     }
 
-    Task<Brand> IService<Brand>.Create(Brand model)
+    async Task IService<Brand>.Delete(int id)
     {
-        throw new NotImplementedException();
+        var brand = await _repository.GetByIdAsync(id);
+        if (brand?.Id != id)
+        {
+            throw new Exception("Invalid Id");
+        }
+        await _repository.DeleteAsync(brand);
     }
 
-    Task IService<Brand>.Delete(int id)
+    async Task<Brand> IService<Brand>.Edit(Brand model)
     {
-        throw new NotImplementedException();
+        return await _repository.UpdateAsync(model);
     }
 
-    Task<Brand> IService<Brand>.Edit(Brand model)
+    async Task<IEnumerable<Brand>> IService<Brand>.GetAll()
     {
-        throw new NotImplementedException();
+        return await _repository.GetAllAsync();
     }
 
-    Task<IEnumerable<Brand>> IService<Brand>.GetAll()
+    async Task<Brand> IService<Brand>.GetById(int id)
     {
-        throw new NotImplementedException();
-    }
-
-    Task<Brand> IService<Brand>.GetById(int id)
-    {
-        throw new NotImplementedException();
+        return await _repository.GetByIdAsync(id) ?? new();
     }
 }

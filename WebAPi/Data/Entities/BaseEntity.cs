@@ -1,4 +1,4 @@
-﻿namespace Models.Entities;
+﻿namespace WebAPi.Data.Entities;
 
 public class BaseEntity
 {

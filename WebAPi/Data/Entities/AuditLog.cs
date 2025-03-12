@@ -1,6 +1,4 @@
-﻿using Models.Entities;
-
-namespace Shared.Entities;
+﻿namespace WebAPi.Data.Entities;
 
 public class AuditLog : BaseEntity
 {

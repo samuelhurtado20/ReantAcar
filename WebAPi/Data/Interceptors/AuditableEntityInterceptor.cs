@@ -1,10 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Diagnostics;
-using Models.Entities;
 using Shared.Constants;
-using Shared.Entities;
 using System.Text;
+using WebAPi.Data.Entities;
 using WebAPi.Extensions;
 using WebAPi.Interfaces.Interceptors;
 

@@ -1,12 +1,9 @@
-﻿using Models.Entities;
-using WebAPi.Data;
+﻿using WebAPi.Data;
+using WebAPi.Data.Entities;
 using WebAPi.Interfaces.Repositories;
 
 namespace WebAPi.Repositories;
 
-public class BrandRepository : Repository<Brand>, IBrandRepository
+public class BrandRepository(ApplicationDbContext appDbContext) : Repository<Brand>(appDbContext), IBrandRepository
 {
-    public BrandRepository(ApplicationDbContext appDbContext) : base(appDbContext)
-    {
-    }
 }

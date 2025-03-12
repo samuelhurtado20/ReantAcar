@@ -1,12 +1,9 @@
-﻿using Models.Entities;
-using WebAPi.Data;
+﻿using WebAPi.Data;
+using WebAPi.Data.Entities;
 using WebAPi.Interfaces.Repositories;
 
 namespace WebAPi.Repositories;
 
-public class VehicleRepository : Repository<Vehicle>, IVehicleRepository
+public class VehicleRepository(ApplicationDbContext appDbContext) : Repository<Vehicle>(appDbContext), IVehicleRepository
 {
-    public VehicleRepository(ApplicationDbContext appDbContext) : base(appDbContext)
-    {
-    }
 }

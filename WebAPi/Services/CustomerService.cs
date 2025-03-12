@@ -1,18 +1,13 @@
-﻿using Models.Entities;
+﻿using WebAPi.Data.Entities;
 using WebAPi.Interfaces;
 using WebAPi.Interfaces.Repositories;
 using WebAPi.Interfaces.Services;
 
 namespace WebAPi.Services;
 
-public class CustomerService : ICustomerService
+public class CustomerService(ICustomerRepository repository) : ICustomerService
 {
-    private readonly ICustomerRepository _repository;
-
-    public CustomerService(ICustomerRepository repository)
-    {
-        _repository = repository;
-    }
+    private readonly ICustomerRepository _repository = repository;
 
     Task<Customer> IService<Customer>.Create(Customer model)
     {

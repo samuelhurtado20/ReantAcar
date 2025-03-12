@@ -1,12 +1,9 @@
-﻿using Models.Entities;
-using WebAPi.Data;
+﻿using WebAPi.Data;
+using WebAPi.Data.Entities;
 using WebAPi.Interfaces.Repositories;
 
 namespace WebAPi.Repositories;
 
-public class CustomerRepository : Repository<Customer>, ICustomerRepository
+public class CustomerRepository(ApplicationDbContext appDbContext) : Repository<Customer>(appDbContext), ICustomerRepository
 {
-    public CustomerRepository(ApplicationDbContext appDbContext) : base(appDbContext)
-    {
-    }
 }

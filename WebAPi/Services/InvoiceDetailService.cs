@@ -1,4 +1,4 @@
-﻿using Models.Entities;
+﻿using WebAPi.Data.Entities;
 using WebAPi.Interfaces;
 using WebAPi.Interfaces.Repositories;
 using WebAPi.Interfaces.Services;

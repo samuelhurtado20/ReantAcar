@@ -1,18 +1,13 @@
-﻿using Models.Entities;
+﻿using WebAPi.Data.Entities;
 using WebAPi.Interfaces;
 using WebAPi.Interfaces.Repositories;
 using WebAPi.Interfaces.Services;
 
 namespace WebAPi.Services;
 
-public class VehicleService : IVehicleService
+public class VehicleService(IVehicleRepository repository) : IVehicleService
 {
-    private readonly IVehicleRepository _repository;
-
-    public VehicleService(IVehicleRepository repository)
-    {
-        _repository = repository;
-    }
+    private readonly IVehicleRepository _repository = repository;
 
     Task<Vehicle> IService<Vehicle>.Create(Vehicle model)
     {

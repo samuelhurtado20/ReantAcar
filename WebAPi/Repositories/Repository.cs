@@ -1,51 +1,57 @@
-﻿using Models.Entities;
+﻿using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 using WebAPi.Data;
+using WebAPi.Data.Entities;
 using WebAPi.Interfaces;
 
 namespace WebAPi.Repositories;
 
-public class Repository<T> : IRepository<T> where T : BaseEntity
+public class Repository<T>(ApplicationDbContext appDbContext) : IRepository<T> where T : BaseEntity
 {
-    private ApplicationDbContext _appDbContext;
+    private readonly ApplicationDbContext _appDbContext = appDbContext;
 
-    public Repository(ApplicationDbContext appDbContext)
+    async Task<T> IRepository<T>.CreateAsync(T entity)
     {
-        _appDbContext = appDbContext;
+        await _appDbContext.Set<T>().AddAsync(entity);
+        await _appDbContext.SaveChangesAsync();
+        return entity;
     }
 
-    Task<T> IRepository<T>.CreateAsync(T entity)
+    async Task IRepository<T>.DeleteAsync(T entity)
     {
-        throw new NotImplementedException();
+        _appDbContext.Set<T>().Remove(entity);
+        await _appDbContext.SaveChangesAsync();
     }
 
-    Task IRepository<T>.DeleteAsync(T entity)
+    async Task<IEnumerable<T>> IRepository<T>.GetAllAsync()
     {
-        throw new NotImplementedException();
+        return await _appDbContext.Set<T>().ToListAsync();
     }
 
-    Task<IEnumerable<T>> IRepository<T>.GetAllAsync()
+    async Task<IEnumerable<T>> IRepository<T>.GetAsync(Expression<Func<T, bool>> predicate)
     {
-        throw new NotImplementedException();
+        return await _appDbContext.Set<T>().Where(predicate).ToListAsync();
     }
 
-    Task<IEnumerable<T>> IRepository<T>.GetAsync(Expression<Func<T, bool>> predicate)
+    async Task<T?> IRepository<T>.GetByIdAsync(int id)
     {
-        throw new NotImplementedException();
+        return await _appDbContext.Set<T>().FindAsync(id);
     }
 
-    Task<T?> IRepository<T>.GetByIdAsync(int id)
+    async Task<T?> IRepository<T>.GetByIdIncludingAsync(int id, params Expression<Func<T, object>>[] includeProperties)
     {
-        throw new NotImplementedException();
+        var query = _appDbContext.Set<T>().AsQueryable();
+        foreach (var includeProperty in includeProperties)
+        {
+            query = query.Include(includeProperty);
+        }
+        return await query.FirstOrDefaultAsync(entity => entity.Id == id);
     }
 
-    Task<T?> IRepository<T>.GetByIdIncludingAsync(int id, params Expression<Func<T, object>>[] includeProperties)
+    async Task<T> IRepository<T>.UpdateAsync(T entity)
     {
-        throw new NotImplementedException();
-    }
-
-    Task<T> IRepository<T>.UpdateAsync(T entity)
-    {
-        throw new NotImplementedException();
+        _appDbContext.Set<T>().Update(entity);
+        await _appDbContext.SaveChangesAsync();
+        return entity;
     }
 }

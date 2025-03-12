@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Models.Entities;
-using Shared.Entities;
+using WebAPi.Data.Entities;
 
 namespace WebAPi.Data
 {

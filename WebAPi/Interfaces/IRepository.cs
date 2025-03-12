@@ -1,5 +1,5 @@
-﻿using Models.Entities;
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
+using WebAPi.Data.Entities;
 
 namespace WebAPi.Interfaces;
 
